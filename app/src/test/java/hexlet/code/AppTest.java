@@ -4,11 +4,13 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test void jsonTest() throws Exception {
+        System.out.println(Differ.generate("filePath1.json", "filePath2.json", "JSON"));
     }
 }

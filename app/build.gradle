@@ -17,6 +17,10 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
+    implementation 'info.picocli:picocli:4.7.5'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -40,4 +44,8 @@ application {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+compileJava {
+    options.release = 20
 }
