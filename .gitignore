@@ -1,6 +1,5 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-.github
 .idea
 .gitattributes
 *.json

@@ -23,8 +23,9 @@ public class Differ {
         switch (formatName) {
             case ("JSON"):
                 return Json.json(list);
+            default:
+                return "stylish";
         }
-        return "stylish";
     }
 
     public static Map<String, Object> getData(String filepath) throws Exception {
@@ -32,6 +33,6 @@ public class Differ {
         if (!Files.exists(path)) {
             throw new Exception("File '" + filepath + "' does not exist");
         }
-        return objectMapper.readValue(new File(filepath), new TypeReference<Map<String,Object>>(){});
+        return objectMapper.readValue(new File(filepath), new TypeReference<Map<String, Object>>() { });
     }
 }

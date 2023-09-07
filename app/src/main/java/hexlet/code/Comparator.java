@@ -1,10 +1,15 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableSet;
+import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class Comparator {
 
-    public static List<Difference> comparator (Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    public static List<Difference> comparator(Map<String, Object> firstMap, Map<String, Object> secondMap) {
         NavigableSet<String> keys = new TreeSet<>();
         keys.addAll(firstMap.keySet());
         keys.addAll(secondMap.keySet());
@@ -16,8 +21,8 @@ public class Comparator {
                     Object map1 = firstMap.get(key);
                     Object map2 = secondMap.get(key);
                     Difference difference;
-                    if(!mapContain1) {
-                        difference = new Difference("+", key , map2);
+                    if (!mapContain1) {
+                        difference = new Difference("+", key, map2);
                     } else if (!mapContain2) {
                         difference = new Difference("-", key, map1);
                     } else if (Objects.equals(map1, map2)) {
