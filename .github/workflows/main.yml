@@ -15,7 +15,6 @@ jobs:
           java-version: '20'
           distribution: 'temurin'
       - name: Build
-          uses: gradle/gradle-build-action@v2
           run: make build
           with:
               build-root-directory: app
