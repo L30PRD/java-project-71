@@ -17,10 +17,10 @@ jobs:
       - name: Build
         run: make build
       - name: Code Coverage
-        uses: paambaati/codeclimate-action@v3.2.0
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           JACOCO_SOURCE_PATH: ${{ github.workspace }}/app/src/main/java
         with:
           coverageCommand: make report
-          coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/html/jacocoTestReport.xml:jacoco
+          coverageLocations: ${{ github.workspace }}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco

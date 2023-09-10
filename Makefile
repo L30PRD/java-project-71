@@ -8,7 +8,7 @@ test:
 	./gradlew test
 
 build:
-	./gradlew clean build installDist
+	./gradlew clean build
 
 report:
 	./gradlew jacocoTestReport
