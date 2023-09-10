@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AppTest {
-    String filePath1 = "./src/test/resources/filePath1.json";
-    String filePath2 = "./src/test/resources/filePath2.json";
-    String emptyFile = "./src/test/resources/empty.json";
+    final String filePath1 = "./src/test/resources/filepath1.json";
+    final String filePath2 = "./src/test/resources/filepath2.json";
+    final String emptyFile = "./src/test/resources/empty.json";
 
     @Test
     void jsonTest() throws Exception {
