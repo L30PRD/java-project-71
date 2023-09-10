@@ -15,14 +15,12 @@ jobs:
           java-version: '20'
           distribution: 'temurin'
       - name: Build
-          run: make build
-          with:
-              build-root-directory: app
+        run: make build
       - name: Code Coverage
-          uses: paambaati/codeclimate-action@v3.0.0
-          env:
-              CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-              JACOCO_SOURCE_PATH: app/src/main/java
-          with:
-              coverageCommand: make report
-              coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/html/jacocoTestReport.xml:jacoco
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+          JACOCO_SOURCE_PATH: app/src/main/java
+        with:
+          coverageCommand: make report
+          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/html/jacocoTestReport.xml:jacoco
