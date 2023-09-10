@@ -1,0 +1,7 @@
+{
+  "chars": ["a", "b", "c"],
+  "numbers": [1, 2, 4, 5],
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io"
+}
