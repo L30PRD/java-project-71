@@ -8,6 +8,7 @@ import java.util.List;
 public class Json {
 
     public static String json(List<Difference> list) throws IOException {
+
         StringBuilder result = new StringBuilder();
         for (Difference dif : list) {
             if (dif.getObject2() == null) {

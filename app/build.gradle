@@ -7,8 +7,10 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    id 'jacoco'
     id 'checkstyle'
     id 'application'
+    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 repositories {
@@ -49,4 +51,23 @@ tasks.named('test') {
 
 compileJava {
     options.release = 20
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/html')
+    }
+}
+
+run {
+    standardInput(System.in)
+}
+
+testlogger {
+    theme 'mocha'
 }

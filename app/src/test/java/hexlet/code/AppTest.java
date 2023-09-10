@@ -5,12 +5,30 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AppTest {
-    @Test void jsonTest() throws Exception {
-        System.out.println(Differ.generate("filePath1.json", "filePath2.json", "JSON"));
+    String filePath1 = "./src/test/resources/filePath1.json";
+    String filePath2 = "./src/test/resources/filePath2.json";
+    String emptyFile = "./src/test/resources/empty.json";
+
+    @Test
+    void jsonTest() throws Exception {
+        String expect = "{\n  + chars: [a, b, c, d]\n  + chars: [a, b, c]\n  - follow: false"
+                + "\n    host: hexlet.io\n  - letters: [a, b]\n  + numbers: [1, 2, 3, 4]\n  + numbers: [1, 2, 4, 5]"
+                + "\n  - proxy: 123.234.53.22\n  + timeout: 50\n  + timeout: 20\n  + verbose: true\n}";
+        String actual = Differ.generate(filePath1, filePath2, "JSON");
+        assertEquals(expect, actual);
+        String actual2 = Differ.generate(emptyFile, emptyFile, "JSON");
+        assertEquals("{\n}", actual2);
+    }
+
+    @Test
+    void testError() {
+        Throwable thrown = assertThrows(Exception.class, ()
+                -> Differ.generate("emptyFile.json", emptyFile, "JSON"));
+        assertNotNull(thrown.getMessage());
     }
 }

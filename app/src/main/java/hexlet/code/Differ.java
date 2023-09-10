@@ -28,6 +28,10 @@ public class Differ {
         }
     }
 
+    public static String generate(String filePath1, String filePath2)  throws Exception {
+        return generate(filePath1, filePath2, "stylish");
+    }
+
     public static Map<String, Object> getData(String filepath) throws Exception {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         if (!Files.exists(path)) {
