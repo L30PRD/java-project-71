@@ -2,7 +2,6 @@
 .gradle
 .idea
 .gitattributes
-*.json
 
 
 # Ignore Gradle build output directory
