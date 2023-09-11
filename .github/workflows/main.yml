@@ -16,6 +16,8 @@ jobs:
           distribution: 'temurin'
       - name: Build
         run: make build
+      - name: CheckStyle
+        run: make lint
       - name: Code Coverage
         uses: paambaati/codeclimate-action@v5.0.0
         env:
