@@ -2,6 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.format.Json;
 import hexlet.code.format.Stylish;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class Differ {
 
-    public static ObjectMapper objectMapper = new ObjectMapper();
+    public static ObjectMapper objectMapper;
 
     public static String generate(String filePath1, String filePath2, String formatName)  throws Exception  {
         Map<String, Object> file1 = getData(filePath1);
@@ -37,6 +38,11 @@ public class Differ {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         if (!Files.exists(path)) {
             throw new Exception("File '" + filepath + "' does not exist");
+        }
+        if (filepath.endsWith("json")) {
+            objectMapper = new ObjectMapper();
+        } else if (filepath.endsWith("yml")) {
+            objectMapper = new YAMLMapper();
         }
         return objectMapper.readValue(new File(filepath), new TypeReference<Map<String, Object>>() { });
     }

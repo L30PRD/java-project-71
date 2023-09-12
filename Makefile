@@ -1,5 +1,5 @@
 run-dist:
-	./app/build/install/app/bin/app filepath1.json filepath2.json -f JSON
+	./app/build/install/app/bin/app filepath1.yml filepath2.yml
 
 lint:
 	./gradlew checkstyleMain checkstyleTest
