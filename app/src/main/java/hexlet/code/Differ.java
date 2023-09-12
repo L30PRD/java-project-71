@@ -3,6 +3,7 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.format.Json;
+import hexlet.code.format.Stylish;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -24,7 +25,7 @@ public class Differ {
             case ("JSON"):
                 return Json.json(list);
             default:
-                return "stylish";
+                return Stylish.stylish(list);
         }
     }
 
