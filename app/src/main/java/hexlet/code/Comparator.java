@@ -22,13 +22,13 @@ public class Comparator {
                     Object map2 = secondMap.get(key);
                     Difference difference;
                     if (!mapContain1) {
-                        difference = new Difference("+", key, map2);
+                        difference = new Difference("ADDED", key, map2);
                     } else if (!mapContain2) {
-                        difference = new Difference("-", key, map1);
+                        difference = new Difference("REMOVED", key, map1);
                     } else if (Objects.equals(map1, map2)) {
-                        difference = new Difference(" ", key, map1);
+                        difference = new Difference("UNCHANGED", key, map1);
                     } else {
-                        difference = new Difference("+", key, map1, map2);
+                        difference = new Difference("UPDATED", key, map1, map2);
                     }
                     list.add(difference);
                 });

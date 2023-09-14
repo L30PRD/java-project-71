@@ -16,18 +16,18 @@ class AppTest {
 
     @Test
     void jsonTest() throws Exception {
-        String expect = "" + "[{\"status\":\"+\",\"name\":\"chars\",\"object1\":[\"a\",\"b\",\"c\",\"d\"],"
-                + "\"object2\":[\"a\",\"b\",\"c\"]},{\"status\":\"-\",\"name\":\"follow\",\"object1\":false,"
-                + "\"object2\":null},{\"status\":\" \",\"name\":\"host\",\"object1\":\"hexlet.io\",\"object2\":null},"
-                + "{\"status\":\"-\",\"name\":\"letters\",\"object1\":[\"a\",\"b\"],\"object2\":null},"
-                + "{\"status\":\"+\",\"name\":\"numbers\",\"object1\":[1,2,3,4],\"object2\":[1,2,4,5]},"
-                + "{\"status\":\"-\",\"name\":\"proxy\",\"object1\":\"123.234.53.22\",\"object2\":null},"
-                + "{\"status\":\"+\",\"name\":\"timeout\",\"object1\":50,\"object2\":20},"
-                + "{\"status\":\"+\",\"name\":\"verbose\",\"object1\":true,\"object2\":null}]";
+        String expect = "[{\"status\":\"+\",\"name\":\"chars\",\"object1\":[a, b, c, d],\"object2\":[a, b, c]}"
+                + "{\"status\":\"-\",\"name\"\"follow\",\"object1\":false}"
+                + "{\"status\":\"    \",\"name\":\"host\",\"object1\":hexlet.io}"
+                + "{\"status\":\"-\",\"name\"\"letters\",\"object1\":[a, b]}"
+                + "{\"status\":\"+\",\"name\":\"numbers\",\"object1\":[1, 2, 3, 4],\"object2\":[1, 2, 4, 5]}"
+                + "{\"status\":\"-\",\"name\"\"proxy\",\"object1\":123.234.53.22}"
+                + "{\"status\":\"+\",\"name\":\"timeout\",\"object1\":50,\"object2\":20}"
+                + "{\"status\":\"+\",\"name\":\"verbose\",\"object1\":true}]";
 
-        String actual = Differ.generate(filePath1, filePath2, "JSON");
+        String actual = Differ.generate(filePath1, filePath2, "json");
         assertEquals(expect, actual);
-        String actual2 = Differ.generate(emptyFile, emptyFile, "JSON");
+        String actual2 = Differ.generate(emptyFile, emptyFile, "json");
         assertEquals("[]", actual2);
     }
 
@@ -37,7 +37,7 @@ class AppTest {
                 + "\n    host: hexlet.io\n  - letters: [a, b]\n  + numbers: [1, 2, 3, 4]\n  + numbers: [1, 2, 4, 5]"
                 + "\n  - proxy: 123.234.53.22\n  + timeout: 50\n  + timeout: 20\n  + verbose: true\n}";
 
-        String actual = Differ.generate(filePath1, filePath2, "Stylish");
+        String actual = Differ.generate(filePath1, filePath2, "stylish");
         assertEquals(expect, actual);
         String actual2 = Differ.generate(emptyFile, emptyFile);
         assertEquals("{\n}", actual2);
@@ -52,13 +52,12 @@ class AppTest {
 
     @Test
     void ymlTest() throws Exception {
-        String expected3 = "{\n    chars1: [a, b, c]\n  + chars2: [d, e, f]\n  + chars2: false\n"
-                + "  + checked: false\n  + checked: true\n  + default: null\n  + default: [value1, value2]\n"
-                + "  + id: 45\n  - key1: value1\n  + key2: value2\n    numbers1: [1, 2, 3, 4]\n"
-                + "  + numbers2: [2, 3, 4, 5]\n  + numbers2: [22, 33, 44, 55]\n  - numbers3: [3, 4, 5]\n"
-                + "  + numbers4: [4, 5, 6]\n  + obj1: {nestedKey=value, isNested=true}\n  + setting1: Some value\n"
-                + "  + setting1: Another value\n  + setting2: 200\n  + setting2: 300\n  + setting3: true\n"
-                + "  + setting3: none\n}";
+        String expected3 = "{\n    chars1: [a, b, c]\n  + chars2: [d, e, f]\n  + chars2: false\n  + checked: false\n"
+                + "  + checked: true\n  + default: null\n  + default: [value1, value2]\n  + id: 45\n  + id: null\n"
+                + "  - key1: value1\n  + key2: value2\n    numbers1: [1, 2, 3, 4]\n  + numbers2: [2, 3, 4, 5]\n"
+                + "  + numbers2: [22, 33, 44, 55]\n  - numbers3: [3, 4, 5]\n  + numbers4: [4, 5, 6]\n"
+                + "  + obj1: {nestedKey=value, isNested=true}\n  + setting1: Some value\n  + setting1: Another value\n"
+                + "  + setting2: 200\n  + setting2: 300\n  + setting3: true\n  + setting3: none\n}";
 
         String pathfile1 = "./src/test/resources/filepath1.yml";
         String pathfile2 = "./src/test/resources/filepath2.yml";
