@@ -1,7 +1,9 @@
 package hexlet.code;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Formatter {
 
@@ -124,7 +126,8 @@ public class Formatter {
         return result.toString();
     }
 
-    public static String stringCheck(Object obj) {
-        return obj instanceof String ? "'" + obj + "'" : "[complex value]";
+    public static Object stringCheck(Object obj) {
+        return obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>
+                ? "[complex value]" : obj;
     }
 }
