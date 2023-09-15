@@ -33,9 +33,20 @@ class AppTest {
 
     @Test
     void stylishTest() throws Exception {
-        String expect = "{\n  + chars: [a, b, c, d]\n  + chars: [a, b, c]\n  - follow: false"
-                + "\n    host: hexlet.io\n  - letters: [a, b]\n  + numbers: [1, 2, 3, 4]\n  + numbers: [1, 2, 4, 5]"
-                + "\n  - proxy: 123.234.53.22\n  + timeout: 50\n  + timeout: 20\n  + verbose: true\n}";
+        String expect = """
+                {
+                  + chars: [a, b, c, d]
+                  + chars: [a, b, c]
+                  - follow: false
+                    host: hexlet.io
+                  - letters: [a, b]
+                  + numbers: [1, 2, 3, 4]
+                  + numbers: [1, 2, 4, 5]
+                  - proxy: 123.234.53.22
+                  + timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }""";
 
         String actual = Differ.generate(filePath1, filePath2, "stylish");
         assertEquals(expect, actual);
@@ -46,18 +57,38 @@ class AppTest {
     @Test
     void testError() {
         Throwable thrown = assertThrows(Exception.class, ()
-                -> Differ.generate("emptyFile.json", emptyFile, "JSON"));
+                -> Differ.generate("emptyFile.json", emptyFile, "json"));
         assertNotNull(thrown.getMessage());
     }
 
     @Test
     void ymlTest() throws Exception {
-        String expected3 = "{\n    chars1: [a, b, c]\n  + chars2: [d, e, f]\n  + chars2: false\n  + checked: false\n"
-                + "  + checked: true\n  + default: null\n  + default: [value1, value2]\n  + id: 45\n  + id: null\n"
-                + "  - key1: value1\n  + key2: value2\n    numbers1: [1, 2, 3, 4]\n  + numbers2: [2, 3, 4, 5]\n"
-                + "  + numbers2: [22, 33, 44, 55]\n  - numbers3: [3, 4, 5]\n  + numbers4: [4, 5, 6]\n"
-                + "  + obj1: {nestedKey=value, isNested=true}\n  + setting1: Some value\n  + setting1: Another value\n"
-                + "  + setting2: 200\n  + setting2: 300\n  + setting3: true\n  + setting3: none\n}";
+        String expected3 = """
+                {
+                    chars1: [a, b, c]
+                  + chars2: [d, e, f]
+                  + chars2: false
+                  + checked: false
+                  + checked: true
+                  + default: null
+                  + default: [value1, value2]
+                  + id: 45
+                  + id: null
+                  - key1: value1
+                  + key2: value2
+                    numbers1: [1, 2, 3, 4]
+                  + numbers2: [2, 3, 4, 5]
+                  + numbers2: [22, 33, 44, 55]
+                  - numbers3: [3, 4, 5]
+                  + numbers4: [4, 5, 6]
+                  + obj1: {nestedKey=value, isNested=true}
+                  + setting1: Some value
+                  + setting1: Another value
+                  + setting2: 200
+                  + setting2: 300
+                  + setting3: true
+                  + setting3: none
+                }""";
 
         String pathfile1 = "./src/test/resources/filepath1.yml";
         String pathfile2 = "./src/test/resources/filepath2.yml";
@@ -65,5 +96,30 @@ class AppTest {
         String actual3 = Differ.generate(pathfile1, pathfile2);
 
         assertEquals(expected3, actual3);
+    }
+    @Test
+    void plainTest() throws Exception {
+        String expected4 = """
+                Property 'chars2' was updated. From [complex value] to [complex value]
+                Property 'checked' was updated. From [complex value] to [complex value]
+                Property 'default' was updated. From [complex value] to [complex value]
+                Property 'id' was updated. From [complex value] to [complex value]
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From [complex value] to [complex value]
+                Property 'setting3' was updated. From [complex value] to 'none'
+                """;
+
+        String pathfile1 = "./src/test/resources/filepath1.yml";
+        String pathfile2 = "./src/test/resources/filepath2.yml";
+
+        String actual4 = Differ.generate(pathfile1, pathfile2, "plain");
+
+        assertEquals(expected4, actual4);
     }
 }

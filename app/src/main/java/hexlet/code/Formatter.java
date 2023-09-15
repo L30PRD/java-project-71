@@ -102,9 +102,9 @@ public class Formatter {
                 case "ADDED" -> result
                         .append("Property '")
                         .append(dif.getName())
-                        .append("' was added with value: '")
-                        .append(dif.getObject1())
-                        .append("'\n");
+                        .append("' was added with value: ")
+                        .append(stringCheck(dif.getObject1()))
+                        .append("\n");
                 case "REMOVED" -> result
                         .append("Property '")
                         .append(dif.getName())
@@ -113,15 +113,18 @@ public class Formatter {
                 case "UPDATED" -> result
                         .append("Property '")
                         .append(dif.getName())
-                        .append("' was updated. From '")
-                        .append(dif.getObject1())
-                        .append("' to '")
-                        .append(dif.getObject2())
-                        .append("'")
+                        .append("' was updated. From ")
+                        .append(stringCheck(dif.getObject1()))
+                        .append(" to ")
+                        .append(stringCheck(dif.getObject2()))
                         .append("\n");
                 default -> result.append("");
             }
         }
-        return "\n" + result;
+        return result.toString();
+    }
+
+    public static String stringCheck(Object obj) {
+        return obj instanceof String ? "'" + obj + "'" : "[complex value]";
     }
 }
