@@ -59,7 +59,7 @@ public class Formatter {
                         .append(dif.getName())
                         .append("\",")
                         .append("\"object1\":")
-                        .append(dif.getObject1().toString())
+                        .append(dif.getObject1())
                         .append("}");
                 case "REMOVED" -> result
                         .append("{")
@@ -68,7 +68,7 @@ public class Formatter {
                         .append(dif.getName())
                         .append("\",")
                         .append("\"object1\":")
-                        .append(dif.getObject1().toString())
+                        .append(dif.getObject1())
                         .append("}");
                 case "UNCHANGED" -> result
                         .append("{")
@@ -77,7 +77,7 @@ public class Formatter {
                         .append(dif.getName())
                         .append("\",")
                         .append("\"object1\":")
-                        .append(dif.getObject1().toString())
+                        .append(dif.getObject1())
                         .append("}");
                 case "UPDATED" -> result
                         .append("{")
@@ -86,9 +86,9 @@ public class Formatter {
                         .append(dif.getName())
                         .append("\",")
                         .append("\"object1\":")
-                        .append(dif.getObject1().toString())
+                        .append(dif.getObject1())
                         .append(",\"object2\":")
-                        .append(dif.getObject2().toString())
+                        .append(dif.getObject2())
                         .append("}");
                 default -> result.append("");
             }
