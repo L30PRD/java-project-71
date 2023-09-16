@@ -1,5 +1,6 @@
 package hexlet.code;
 
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,6 +40,8 @@ public class Differ {
         if (!Files.exists(path)) {
             throw new Exception("File '" + filepath + "' does not exist");
         }
-        return Parser.parser(filepath, format(filepath));
+        String file = Files.readString(path);
+        String format = format(filepath);
+        return Parser.parser(file, format);
     }
 }

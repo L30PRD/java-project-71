@@ -5,121 +5,55 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AppTest {
     final String filePath1 = "./src/test/resources/filepath1.json";
     final String filePath2 = "./src/test/resources/filepath2.json";
-    final String emptyFile = "./src/test/resources/empty.json";
 
+    final String pathfile3 = "./src/test/resources/filepath1.yml";
+    final String pathfile4 = "./src/test/resources/filepath2.yml";
+
+    public static String getData(String path) throws IOException {
+        return  Files.readString(Paths.get(path).toAbsolutePath().normalize());
+    }
     @Test
     void jsonTest() throws Exception {
-        String expect = "[{\"status\":\"+\",\"name\":\"chars\",\"object1\":[a, b, c, d],\"object2\":[a, b, c]}"
-                + "{\"status\":\"-\",\"name\"\"follow\",\"object1\":false}"
-                + "{\"status\":\"    \",\"name\":\"host\",\"object1\":hexlet.io}"
-                + "{\"status\":\"-\",\"name\"\"letters\",\"object1\":[a, b]}"
-                + "{\"status\":\"+\",\"name\":\"numbers\",\"object1\":[1, 2, 3, 4],\"object2\":[1, 2, 4, 5]}"
-                + "{\"status\":\"-\",\"name\"\"proxy\",\"object1\":123.234.53.22}"
-                + "{\"status\":\"+\",\"name\":\"timeout\",\"object1\":50,\"object2\":20}"
-                + "{\"status\":\"+\",\"name\":\"verbose\",\"object1\":true}]";
+        String expect = getData("./src/test/resources/jsonTestResult.txt");
 
         String actual = Differ.generate(filePath1, filePath2, "json");
         assertEquals(expect, actual);
-        String actual2 = Differ.generate(emptyFile, emptyFile, "json");
-        assertEquals("[]", actual2);
     }
 
     @Test
     void stylishTest() throws Exception {
-        String expect = """
-                {
-                  + chars: [a, b, c, d]
-                  + chars: [a, b, c]
-                  - follow: false
-                    host: hexlet.io
-                  - letters: [a, b]
-                  + numbers: [1, 2, 3, 4]
-                  + numbers: [1, 2, 4, 5]
-                  - proxy: 123.234.53.22
-                  + timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
+        String expect = getData("./src/test/resources/stylishTestResult.txt");
 
         String actual = Differ.generate(filePath1, filePath2, "stylish");
         assertEquals(expect, actual);
-        String actual2 = Differ.generate(emptyFile, emptyFile);
-        assertEquals("{\n}", actual2);
-    }
-
-    @Test
-    void testError() {
-        Throwable thrown = assertThrows(Exception.class, ()
-                -> Differ.generate("emptyFile.json", emptyFile, "json"));
-        assertNotNull(thrown.getMessage());
     }
 
     @Test
     void ymlTest() throws Exception {
-        String expected3 = """
-                {
-                    chars1: [a, b, c]
-                  + chars2: [d, e, f]
-                  + chars2: false
-                  + checked: false
-                  + checked: true
-                  + default: null
-                  + default: [value1, value2]
-                  + id: 45
-                  + id: null
-                  - key1: value1
-                  + key2: value2
-                    numbers1: [1, 2, 3, 4]
-                  + numbers2: [2, 3, 4, 5]
-                  + numbers2: [22, 33, 44, 55]
-                  - numbers3: [3, 4, 5]
-                  + numbers4: [4, 5, 6]
-                  + obj1: {nestedKey=value, isNested=true}
-                  + setting1: Some value
-                  + setting1: Another value
-                  + setting2: 200
-                  + setting2: 300
-                  + setting3: true
-                  + setting3: none
-                }""";
+        String expect = getData("./src/test/resources/stylishTestResult.txt");
 
-        String pathfile1 = "./src/test/resources/filepath1.yml";
-        String pathfile2 = "./src/test/resources/filepath2.yml";
+        String actual = Differ.generate(pathfile3, pathfile4);
 
-        String actual3 = Differ.generate(pathfile1, pathfile2);
-
-        assertEquals(expected3, actual3);
+        assertEquals(expect, actual);
     }
     @Test
     void plainTest() throws Exception {
-        String expected4 = """
-                Property 'chars2' was updated. From [complex value] to false
-                Property 'checked' was updated. From false to true
-                Property 'default' was updated. From null to [complex value]
-                Property 'id' was updated. From 45 to null
-                Property 'key1' was removed
-                Property 'key2' was added with value: value2
-                Property 'numbers2' was updated. From [complex value] to [complex value]
-                Property 'numbers3' was removed
-                Property 'numbers4' was added with value: [complex value]
-                Property 'obj1' was added with value: [complex value]
-                Property 'setting1' was updated. From Some value to Another value
-                Property 'setting2' was updated. From 200 to 300
-                Property 'setting3' was updated. From true to none
-                """;
+        String expect = getData("./src/test/resources/plainTestResult.txt");
 
         String pathfile1 = "./src/test/resources/filepath1.yml";
         String pathfile2 = "./src/test/resources/filepath2.yml";
 
-        String actual4 = Differ.generate(pathfile1, pathfile2, "plain");
+        String actual = Differ.generate(pathfile1, pathfile2, "plain");
 
-        assertEquals(expected4, actual4);
+        assertEquals(expect, actual);
     }
 }

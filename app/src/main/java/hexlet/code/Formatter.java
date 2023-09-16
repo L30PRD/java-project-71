@@ -1,6 +1,8 @@
 package hexlet.code;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -47,55 +49,6 @@ public class Formatter {
         return "{" + "\n" + result + "}";
     }
 
-    public static String json(List<Difference> list) throws IOException {
-        StringBuilder result = new StringBuilder();
-
-        for (Difference dif : list) {
-            switch (dif.getStatus()) {
-                case "ADDED" -> result
-                        .append("{")
-                        .append("\"status\":\"+\",")
-                        .append("\"name\":\"")
-                        .append(dif.getName())
-                        .append("\",")
-                        .append("\"object1\":")
-                        .append(dif.getObject1())
-                        .append("}");
-                case "REMOVED" -> result
-                        .append("{")
-                        .append("\"status\":\"-\",")
-                        .append("\"name\"\"")
-                        .append(dif.getName())
-                        .append("\",")
-                        .append("\"object1\":")
-                        .append(dif.getObject1())
-                        .append("}");
-                case "UNCHANGED" -> result
-                        .append("{")
-                        .append("\"status\":\"    \",")
-                        .append("\"name\":\"")
-                        .append(dif.getName())
-                        .append("\",")
-                        .append("\"object1\":")
-                        .append(dif.getObject1())
-                        .append("}");
-                case "UPDATED" -> result
-                        .append("{")
-                        .append("\"status\":\"+\",")
-                        .append("\"name\":\"")
-                        .append(dif.getName())
-                        .append("\",")
-                        .append("\"object1\":")
-                        .append(dif.getObject1())
-                        .append(",\"object2\":")
-                        .append(dif.getObject2())
-                        .append("}");
-                default -> result.append("");
-            }
-        }
-        return "[" + result + "]";
-    }
-
     public static String plain(List<Difference> list) {
         StringBuilder result = new StringBuilder();
 
@@ -129,5 +82,11 @@ public class Formatter {
     public static Object stringCheck(Object obj) {
         return obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>
                 ? "[complex value]" : obj;
+    }
+
+    //Изменил реализацию Json, что бы не менять класс Difference на HashMap с отличиями файлов
+    public static String json(List<Difference> list) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(list);
     }
 }
