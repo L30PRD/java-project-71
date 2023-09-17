@@ -16,7 +16,7 @@ public class Plain {
                         .append("Property '")
                         .append(dif.get("key"))
                         .append("' was added with value: ")
-                        .append(stringCheck(dif.get("new_value")))
+                        .append(collectionCheck(stringCheck(dif.get("new_value"))))
                         .append("\n");
             } else if (status.equals("REMOVED")) {
                 result
@@ -29,9 +29,9 @@ public class Plain {
                         .append("Property '")
                         .append(dif.get("key"))
                         .append("' was updated. From ")
-                        .append(stringCheck(dif.get("old_value")))
+                        .append(collectionCheck(stringCheck(dif.get("old_value"))))
                         .append(" to ")
-                        .append(stringCheck(dif.get("new_value")))
+                        .append(collectionCheck(stringCheck(dif.get("new_value"))))
                         .append("\n");
             }
         }
@@ -39,8 +39,13 @@ public class Plain {
     }
 
 
-    public static Object stringCheck(Object obj) {
+    public static Object collectionCheck(Object obj) {
         return obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>
-                ? "[complex value]" : "'" + obj + "'";
+                ? "[complex value]" : obj;
+    }
+
+    public static Object stringCheck(Object obj) {
+        return obj instanceof String
+                ? "'" + obj + "'" : obj;
     }
 }
