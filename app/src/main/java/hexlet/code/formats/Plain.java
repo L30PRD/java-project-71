@@ -41,7 +41,7 @@ public class Plain {
 
 
     public static Object collectionCheck(Object obj) {
-        if(Objects.isNull(obj)) {
+        if (Objects.isNull(obj)) {
             return "null";
         }
         Object str = obj instanceof String ? "'" + obj + "'" : obj;
