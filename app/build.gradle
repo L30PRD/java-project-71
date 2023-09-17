@@ -7,11 +7,15 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
     id 'jacoco'
     id 'checkstyle'
     id 'application'
     id 'com.adarshr.test-logger' version '3.2.0'
 }
+
+group 'hexlet.code'
+version '1.0-SNAPSHOT'
 
 repositories {
     // Use Maven Central for resolving dependencies.
