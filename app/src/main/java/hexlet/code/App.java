@@ -11,22 +11,22 @@ import java.util.concurrent.Callable;
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.")
 
-public class App implements Callable<Integer> {
+public final class App implements Callable<Integer> {
 
     @Parameters(index = "0", paramLabel = "filepath1", description = "path to first file")
-    String filePath1;
+    private String filePath1;
 
     @Parameters(index = "1", paramLabel = "filepath2", description = "path to second file")
-     String filePath2;
+    private String filePath2;
 
     @Option(names = {"-f", "--format"}, paramLabel = "format",
             description = "output format [default: stylish]", defaultValue = "stylish")
-     String format;
+    private String format;
 
     @Override
     public Integer call() throws Exception {
         try {
-            System.out.println(Differ.generate(filePath1, filePath2, format));
+            System.out.println(Differ.generate(getFilePath1(), getFilePath2(), getFormat()));
             return 0;
         } catch (IOException e) {
             return 1;
@@ -36,5 +36,17 @@ public class App implements Callable<Integer> {
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
+    }
+
+    public String getFilePath1() {
+        return filePath1;
+    }
+
+    public String getFilePath2() {
+        return filePath2;
+    }
+
+    public String getFormat() {
+        return format;
     }
 }
