@@ -1,6 +1,3 @@
-run-dist:
-	./app/build/install/app/bin/app ./src/test/resources/filepath1.json ./src/test/resources/filepath2.json
-
 json:
 	./build/install/app/bin/app ./src/test/resources/filepath1.json ./src/test/resources/filepath2.json
 

@@ -1,6 +1,7 @@
 package hexlet.code;
 
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,27 +13,22 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String formatName)  throws Exception  {
         Map<String, Object> file1 = getData(filePath1);
         Map<String, Object> file2 = getData(filePath2);
-        List<Difference> list = Comparator.comparator(file1, file2);
+        List<Map<String, Object>> list = Comparator.comparator(file1, file2);
 
-        switch (formatName) {
-            case ("json"):
-                return Formatter.json(list);
-            case ("plain"):
-                return Formatter.plain(list);
-            case ("stylish"):
-                return Formatter.stylish(list);
-            default:
-                return Formatter.stylish(list);
-        }
+        return Formatter.format(list, formatName);
     }
 
     public static String generate(String filePath1, String filePath2)  throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }
 
-    public static String format(String filepath) {
+    public static String extension(String filepath) throws IOException {
         String[] array = filepath.split("\\.");
-        return array[array.length - 1];
+        String ext = array[array.length - 1];
+        return switch (ext) {
+            case "json", "yml", "yaml" -> ext;
+            default -> throw new IOException("Unknown Format");
+        };
     }
 
     public static Map<String, Object> getData(String filepath) throws Exception {
@@ -41,7 +37,7 @@ public class Differ {
             throw new Exception("File '" + filepath + "' does not exist");
         }
         String file = Files.readString(path);
-        String format = format(filepath);
+        String format = extension(filepath);
         return Parser.parser(file, format);
     }
 }

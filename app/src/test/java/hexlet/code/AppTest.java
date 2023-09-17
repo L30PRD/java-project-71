@@ -3,6 +3,7 @@
  */
 package hexlet.code;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -12,48 +13,64 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AppTest {
-    final String filePath1 = "./src/test/resources/filepath1.json";
-    final String filePath2 = "./src/test/resources/filepath2.json";
 
-    final String pathfile3 = "./src/test/resources/filepath1.yml";
-    final String pathfile4 = "./src/test/resources/filepath2.yml";
+    private static String expectedJson;
+    private static String expectedStylish;
+    private static String expectedPlain;
+    private static String fileJson1;
+    private static String fileJson2;
+    private static String fileYml1;
+    private static String fileYml2;
+
+    @BeforeAll
+    public static void init() throws IOException {
+        fileJson1 = filePath("filepath1.json");
+        fileJson2 = filePath("filepath2.json");
+        fileYml1 = filePath("filepath1.yml");
+        fileYml2 = filePath("filepath2.yml");
+
+        String result1 = filePath("jsonTestResult.json");
+        String result2 = filePath("stylishTestResult.txt");
+        String result3 = filePath("plainTestResult.txt");
+
+        expectedJson = getData(result1);
+        expectedStylish = getData(result2);
+        expectedPlain = getData(result3);
+    }
+
+    public static String filePath(String file) {
+        return "./src/test/resources/" + file;
+    }
 
     public static String getData(String path) throws IOException {
         return  Files.readString(Paths.get(path).toAbsolutePath().normalize());
     }
+
     @Test
     void jsonTest() throws Exception {
-        String expect = getData("./src/test/resources/jsonTestResult.txt");
 
-        String actual = Differ.generate(filePath1, filePath2, "json");
-        assertEquals(expect, actual);
+        String actual = Differ.generate(fileJson1, fileJson2, "json");
+        assertEquals(expectedJson, actual);
     }
 
     @Test
     void stylishTest() throws Exception {
-        String expect = getData("./src/test/resources/stylishTestResult.txt");
 
-        String actual = Differ.generate(filePath1, filePath2, "stylish");
-        assertEquals(expect, actual);
+        String actual = Differ.generate(fileJson1, fileJson2, "stylish");
+        assertEquals(expectedStylish, actual);
     }
 
     @Test
     void ymlTest() throws Exception {
-        String expect = getData("./src/test/resources/stylishTestResult.txt");
 
-        String actual = Differ.generate(pathfile3, pathfile4);
-
-        assertEquals(expect, actual);
+        String actual = Differ.generate(fileYml1, fileYml2);
+        assertEquals(expectedStylish, actual);
     }
+
     @Test
     void plainTest() throws Exception {
-        String expect = getData("./src/test/resources/plainTestResult.txt");
 
-        String pathfile1 = "./src/test/resources/filepath1.yml";
-        String pathfile2 = "./src/test/resources/filepath2.yml";
-
-        String actual = Differ.generate(pathfile1, pathfile2, "plain");
-
-        assertEquals(expect, actual);
+        String actual = Differ.generate(fileYml1, fileYml2, "plain");
+        assertEquals(expectedPlain, actual);
     }
 }
