@@ -26,7 +26,7 @@ public final class App implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         try {
-            System.out.println(Differ.generate(getFilePath1(), getFilePath2(), getFormat()));
+            System.out.println(Differ.generate(filePath1, filePath2, format));
             return 0;
         } catch (IOException e) {
             return 1;
@@ -36,17 +36,5 @@ public final class App implements Callable<Integer> {
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
-    }
-
-    public String getFilePath1() {
-        return filePath1;
-    }
-
-    public String getFilePath2() {
-        return filePath2;
-    }
-
-    public String getFormat() {
-        return format;
     }
 }

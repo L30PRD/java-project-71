@@ -47,30 +47,52 @@ class AppTest {
     }
 
     @Test
-    void jsonTest() throws Exception {
-
-        String actual = Differ.generate(fileJson1, fileJson2, "json");
-        assertEquals(expectedJson, actual);
+    void jsonJsonTest() throws Exception {
+        String actual1 = Differ.generate(fileJson1, fileJson2, "json");
+        assertEquals(expectedJson, actual1);
     }
 
     @Test
-    void stylishTest() throws Exception {
+    void ymlJsonTest() throws Exception {
+        String actual2 = Differ.generate(fileYml1, fileYml2, "json");
+        assertEquals(expectedJson, actual2);
+    }
 
-        String actual = Differ.generate(fileJson1, fileJson2, "stylish");
-        assertEquals(expectedStylish, actual);
+    @Test
+    void jsonStylishTest() throws Exception {
+        String actual1 = Differ.generate(fileJson1, fileJson2, "stylish");
+        assertEquals(expectedStylish, actual1);
+    }
+
+    @Test
+    void ymlStylishTest() throws Exception {
+        String actual2 = Differ.generate(fileYml1, fileYml2, "stylish");
+        assertEquals(expectedStylish, actual2);
+    }
+
+    @Test
+    void jsonTest() throws Exception {
+        String actual1 = Differ.generate(fileJson1, fileJson2);
+        assertEquals(expectedStylish, actual1);
     }
 
     @Test
     void ymlTest() throws Exception {
-
-        String actual = Differ.generate(fileYml1, fileYml2);
-        assertEquals(expectedStylish, actual);
+        String actual2 = Differ.generate(fileYml1, fileYml2);
+        assertEquals(expectedStylish, actual2);
     }
 
     @Test
-    void plainTest() throws Exception {
-
-        String actual = Differ.generate(fileYml1, fileYml2, "plain");
-        assertEquals(expectedPlain, actual);
+    void jsonPlainTest() throws Exception {
+        String actual1 = Differ.generate(fileJson1, fileJson2, "plain");
+        assertEquals(expectedPlain, actual1);
     }
+
+    @Test
+    void ymlPlainTest() throws Exception {
+        String actual2 = Differ.generate(fileYml1, fileYml2, "plain");
+        assertEquals(expectedPlain, actual2);
+    }
+
+
 }

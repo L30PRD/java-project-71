@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class Comparator {
+public class Diff {
 
-    public static List<Map<String, Object>> comparator(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    public static List<Map<String, Object>> generateDiff(Map<String, Object> firstMap, Map<String, Object> secondMap) {
         NavigableSet<String> keys = new TreeSet<>();
         keys.addAll(firstMap.keySet());
         keys.addAll(secondMap.keySet());
@@ -25,20 +25,20 @@ public class Comparator {
                     Map<String, Object> map = new HashMap<>();
                     if (!mapContain1) {
                         map.put("key", key);
-                        map.put("new_value", map2);
+                        map.put("value", map2);
                         map.put("status", "ADDED");
                     } else if (!mapContain2) {
                         map.put("key", key);
-                        map.put("old_value", map1);
+                        map.put("value", map1);
                         map.put("status", "REMOVED");
                     } else if (Objects.equals(map1, map2)) {
                         map.put("key", key);
-                        map.put("old_value", map1);
+                        map.put("value", map1);
                         map.put("status", "UNCHANGED");
                     } else {
                         map.put("key", key);
-                        map.put("old_value", map1);
-                        map.put("new_value", map2);
+                        map.put("value1", map1);
+                        map.put("value2", map2);
                         map.put("status", "UPDATED");
                     }
                     list.add(map);

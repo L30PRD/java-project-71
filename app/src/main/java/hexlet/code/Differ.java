@@ -13,7 +13,7 @@ public class Differ {
     public static String generate(String filePath1, String filePath2, String formatName)  throws Exception  {
         Map<String, Object> file1 = getData(filePath1);
         Map<String, Object> file2 = getData(filePath2);
-        List<Map<String, Object>> list = Comparator.comparator(file1, file2);
+        List<Map<String, Object>> list = Diff.generateDiff(file1, file2);
 
         return Formatter.format(list, formatName);
     }
@@ -24,11 +24,7 @@ public class Differ {
 
     public static String extension(String filepath) throws IOException {
         String[] array = filepath.split("\\.");
-        String ext = array[array.length - 1];
-        return switch (ext) {
-            case "json", "yml", "yaml" -> ext;
-            default -> throw new IOException("Unknown Format");
-        };
+        return array[array.length - 1];
     }
 
     public static Map<String, Object> getData(String filepath) throws Exception {

@@ -15,33 +15,33 @@ public class Stylish {
                         .append("  + ")
                         .append(dif.get("key"))
                         .append(": ")
-                        .append(dif.get("new_value"))
+                        .append(dif.get("value"))
                         .append("\n");
             } else if (status.equals("REMOVED")) {
                 result
                         .append("  - ")
                         .append(dif.get("key"))
                         .append(": ")
-                        .append(dif.get("old_value"))
+                        .append(dif.get("value"))
                         .append("\n");
             } else if (status.equals("UNCHANGED")) {
                 result
                         .append("    ")
                         .append(dif.get("key"))
                         .append(": ")
-                        .append(dif.get("old_value"))
+                        .append(dif.get("value"))
                         .append("\n");
             } else if (status.equals("UPDATED")) {
                 result
                         .append("  - ")
                         .append(dif.get("key"))
                         .append(": ")
-                        .append(dif.get("old_value"))
+                        .append(dif.get("value1"))
                         .append("\n")
                         .append("  + ")
                         .append(dif.get("key"))
                         .append(": ")
-                        .append(dif.get("new_value"))
+                        .append(dif.get("value2"))
                         .append("\n");
             }
         }

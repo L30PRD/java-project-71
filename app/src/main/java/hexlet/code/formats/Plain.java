@@ -3,6 +3,7 @@ package hexlet.code.formats;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Plain {
 
@@ -16,7 +17,7 @@ public class Plain {
                         .append("Property '")
                         .append(dif.get("key"))
                         .append("' was added with value: ")
-                        .append(collectionCheck(stringCheck(dif.get("new_value"))))
+                        .append(collectionCheck(dif.get("value")))
                         .append("\n");
             } else if (status.equals("REMOVED")) {
                 result
@@ -29,9 +30,9 @@ public class Plain {
                         .append("Property '")
                         .append(dif.get("key"))
                         .append("' was updated. From ")
-                        .append(collectionCheck(stringCheck(dif.get("old_value"))))
+                        .append(collectionCheck(dif.get("value1")))
                         .append(" to ")
-                        .append(collectionCheck(stringCheck(dif.get("new_value"))))
+                        .append(collectionCheck(dif.get("value2")))
                         .append("\n");
             }
         }
@@ -40,12 +41,11 @@ public class Plain {
 
 
     public static Object collectionCheck(Object obj) {
-        return obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>
-                ? "[complex value]" : obj;
-    }
-
-    public static Object stringCheck(Object obj) {
-        return obj instanceof String
-                ? "'" + obj + "'" : obj;
+        if(Objects.isNull(obj)) {
+            return "null";
+        }
+        Object str = obj instanceof String ? "'" + obj + "'" : obj;
+        return str instanceof Arrays || str instanceof List || str instanceof Map<?, ?>
+                ? "[complex value]" : str;
     }
 }
