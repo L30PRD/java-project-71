@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class Parser {
 
-    public static Map<String, Object> jsonParser(String str) throws IOException {
+    private static Map<String, Object> jsonParser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(str, new TypeReference<Map<String, Object>>() { });
     }
 
-    public static Map<String, Object> ymlParser(String str) throws IOException {
+    private static Map<String, Object> ymlParser(String str) throws IOException {
         ObjectMapper mapper = new YAMLMapper();
         return mapper.readValue(str, new TypeReference<Map<String, Object>>() { });
     }

@@ -4,7 +4,8 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +24,7 @@ class AppTest {
     private static String fileYml2;
 
     @BeforeAll
-    public static void init() throws IOException {
+    private static void init() throws IOException {
         fileJson1 = filePath("filepath1.json");
         fileJson2 = filePath("filepath2.json");
         fileYml1 = filePath("filepath1.yml");
@@ -38,61 +39,30 @@ class AppTest {
         expectedPlain = getData(result3);
     }
 
-    public static String filePath(String file) {
+    private static String filePath(String file) {
         return "./src/test/resources/" + file;
     }
 
-    public static String getData(String path) throws IOException {
+    private static String getData(String path) throws IOException {
         return  Files.readString(Paths.get(path).toAbsolutePath().normalize());
     }
 
-    @Test
-    void jsonJsonTest() throws Exception {
-        String actual1 = Differ.generate(fileJson1, fileJson2, "json");
-        assertEquals(expectedJson, actual1);
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    void complexTest(String extension) throws Exception {
+        String file1 = "./src/test/resources/" + "filepath1." + extension;
+        String file2 = "./src/test/resources/" + "filepath2." + extension;
+
+        String actual = Differ.generate(file1, file2);
+        assertEquals(expectedStylish, actual);
+
+        String actualStylish = Differ.generate(file1, file2, "stylish");
+        assertEquals(expectedStylish, actualStylish);
+
+        String actualPlain = Differ.generate(file1, file2, "plain");
+        assertEquals(expectedPlain, actualPlain);
+
+        String actualJson = Differ.generate(file1, file2, "json");
+        assertEquals(expectedJson, actualJson);
     }
-
-    @Test
-    void ymlJsonTest() throws Exception {
-        String actual2 = Differ.generate(fileYml1, fileYml2, "json");
-        assertEquals(expectedJson, actual2);
-    }
-
-    @Test
-    void jsonStylishTest() throws Exception {
-        String actual1 = Differ.generate(fileJson1, fileJson2, "stylish");
-        assertEquals(expectedStylish, actual1);
-    }
-
-    @Test
-    void ymlStylishTest() throws Exception {
-        String actual2 = Differ.generate(fileYml1, fileYml2, "stylish");
-        assertEquals(expectedStylish, actual2);
-    }
-
-    @Test
-    void jsonTest() throws Exception {
-        String actual1 = Differ.generate(fileJson1, fileJson2);
-        assertEquals(expectedStylish, actual1);
-    }
-
-    @Test
-    void ymlTest() throws Exception {
-        String actual2 = Differ.generate(fileYml1, fileYml2);
-        assertEquals(expectedStylish, actual2);
-    }
-
-    @Test
-    void jsonPlainTest() throws Exception {
-        String actual1 = Differ.generate(fileJson1, fileJson2, "plain");
-        assertEquals(expectedPlain, actual1);
-    }
-
-    @Test
-    void ymlPlainTest() throws Exception {
-        String actual2 = Differ.generate(fileYml1, fileYml2, "plain");
-        assertEquals(expectedPlain, actual2);
-    }
-
-
 }

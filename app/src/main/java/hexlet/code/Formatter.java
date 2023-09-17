@@ -12,9 +12,9 @@ public class Formatter {
 
     public static String format(List<Map<String, Object>> dif, String format) throws IOException {
         return switch (format) {
-            case "json" -> Json.json(dif);
-            case "plain" -> Plain.plain(dif);
-            case "stylish" -> Stylish.stylish(dif);
+            case "json" -> Json.makeJson(dif);
+            case "plain" -> Plain.makePlain(dif);
+            case "stylish" -> Stylish.makeStylish(dif);
             default -> throw new IOException("Unknown format.");
         };
     }

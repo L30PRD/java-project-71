@@ -7,45 +7,33 @@ import java.util.Objects;
 
 public class Plain {
 
-    public static String plain(List<Map<String, Object>> list) {
-        StringBuilder result = new StringBuilder();
+    public static String makePlain(List<Map<String, Object>> list) {
+        String result = "";
 
         for (Map<String, Object> dif : list) {
             Object status = dif.get("status");
             if (status.equals("ADDED")) {
-                result
-                        .append("Property '")
-                        .append(dif.get("key"))
-                        .append("' was added with value: ")
-                        .append(collectionCheck(dif.get("value")))
-                        .append("\n");
+                result = result + "Property '" + dif.get("key") + "' was added with value: "
+                        + collectionCheck(dif.get("value")) + "\n";
             } else if (status.equals("REMOVED")) {
-                result
-                        .append("Property '")
-                        .append(dif.get("key"))
-                        .append("' was removed")
-                        .append("\n");
+                result = result + "Property '" + dif.get("key") + "' was removed" + "\n";
             } else if (status.equals("UPDATED")) {
-                result
-                        .append("Property '")
-                        .append(dif.get("key"))
-                        .append("' was updated. From ")
-                        .append(collectionCheck(dif.get("value1")))
-                        .append(" to ")
-                        .append(collectionCheck(dif.get("value2")))
-                        .append("\n");
+                result = result + "Property '" + dif.get("key") + "' was updated. From "
+                        + collectionCheck(dif.get("value1")) + " to " + collectionCheck(dif.get("value2")) + "\n";
             }
         }
-        return result.toString().trim();
+        return result.trim();
     }
 
-
-    public static Object collectionCheck(Object obj) {
+    private static Object collectionCheck(Object obj) {
         if (Objects.isNull(obj)) {
             return "null";
+        } else if (obj instanceof String) {
+            return "'" + obj + "'";
+        } else if (obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>) {
+            return "[complex value]";
+        } else {
+            return obj.toString();
         }
-        Object str = obj instanceof String ? "'" + obj + "'" : obj;
-        return str instanceof Arrays || str instanceof List || str instanceof Map<?, ?>
-                ? "[complex value]" : str;
     }
 }

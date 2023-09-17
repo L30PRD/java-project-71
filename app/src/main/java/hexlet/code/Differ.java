@@ -22,12 +22,12 @@ public class Differ {
         return generate(filePath1, filePath2, "stylish");
     }
 
-    public static String extension(String filepath) throws IOException {
+    private static String extension(String filepath) throws IOException {
         String[] array = filepath.split("\\.");
         return array[array.length - 1];
     }
 
-    public static Map<String, Object> getData(String filepath) throws Exception {
+    private static Map<String, Object> getData(String filepath) throws Exception {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         if (!Files.exists(path)) {
             throw new Exception("File '" + filepath + "' does not exist");

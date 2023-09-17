@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Json {
 
-    public static String json(List<Map<String, Object>> list) throws JsonProcessingException {
+    public static String makeJson(List<Map<String, Object>> list) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(list);
     }
