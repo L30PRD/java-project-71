@@ -35,12 +35,12 @@ public class Plain {
                         .append("\n");
             }
         }
-        return result.toString();
+        return result.toString().trim();
     }
 
 
     public static Object stringCheck(Object obj) {
         return obj instanceof Arrays || obj instanceof List || obj instanceof Map<?, ?>
-                ? "[complex value]" : obj;
+                ? "[complex value]" : "'" + obj + "'";
     }
 }
