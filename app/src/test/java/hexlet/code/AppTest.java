@@ -18,28 +18,20 @@ class AppTest {
     private static String expectedJson;
     private static String expectedStylish;
     private static String expectedPlain;
-    private static String fileJson1;
-    private static String fileJson2;
-    private static String fileYml1;
-    private static String fileYml2;
 
     @BeforeAll
-    private static void init() throws IOException {
-        fileJson1 = filePath("filepath1.json");
-        fileJson2 = filePath("filepath2.json");
-        fileYml1 = filePath("filepath1.yml");
-        fileYml2 = filePath("filepath2.yml");
+    public static void init() throws IOException {
 
-        String result1 = filePath("jsonTestResult.json");
-        String result2 = filePath("stylishTestResult.txt");
-        String result3 = filePath("plainTestResult.txt");
+        String result1 = generatePath("jsonTestResult.json");
+        String result2 = generatePath("stylishTestResult.txt");
+        String result3 = generatePath("plainTestResult.txt");
 
         expectedJson = getData(result1);
         expectedStylish = getData(result2);
         expectedPlain = getData(result3);
     }
 
-    private static String filePath(String file) {
+    private static String generatePath(String file) {
         return "./src/test/resources/" + file;
     }
 
@@ -48,10 +40,10 @@ class AppTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"json", "yml"})
+    @ValueSource(strings = {".json", ".yml"})
     void complexTest(String extension) throws Exception {
-        String file1 = "./src/test/resources/" + "filepath1." + extension;
-        String file2 = "./src/test/resources/" + "filepath2." + extension;
+        String file1 = generatePath("filepath1") + extension;
+        String file2 = generatePath("filepath2") + extension;
 
         String actual = Differ.generate(file1, file2);
         assertEquals(expectedStylish, actual);
