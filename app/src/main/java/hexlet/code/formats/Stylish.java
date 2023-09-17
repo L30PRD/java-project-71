@@ -26,14 +26,14 @@ public class Stylish {
                         .append("\n");
             } else if (status.equals("UNCHANGED")) {
                 result
-                        .append("  - ")
+                        .append("    ")
                         .append(dif.get("key"))
                         .append(": ")
                         .append(dif.get("old_value"))
                         .append("\n");
             } else if (status.equals("UPDATED")) {
                 result
-                        .append("  + ")
+                        .append("  - ")
                         .append(dif.get("key"))
                         .append(": ")
                         .append(dif.get("old_value"))
